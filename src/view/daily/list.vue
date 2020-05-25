@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { daily_list, daily_exportDaily } from "@/request/api";
+import { daily_list, daily_exportDaily } from '@/request/api'
 
 export default {
   name: "Record",
