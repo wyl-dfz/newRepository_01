@@ -25,31 +25,31 @@
 </template>
 
 <script>
-  import bus from '../common/bus';
+import bus from '../common/bus'
 
-  export default {
-    name: "Header",
-    data() {
-      return {
-        collapse: false,
-        username: "soyMilk",
+export default {
+  name: 'Header',
+  data () {
+    return {
+      collapse: false,
+      username: 'soyMilk'
+    }
+  },
+  methods: {
+    // 用户名下拉菜单选择事件
+    handleCommand (command) {
+      if (command === 'loginout') {
+        sessionStorage.removeItem('token')
+        this.$router.push('/login')
       }
     },
-    methods: {
-      // 用户名下拉菜单选择事件
-      handleCommand(command) {
-        if (command === 'loginout') {
-          sessionStorage.removeItem('token')
-          this.$router.push('/login');
-        }
-      },
-      // 侧边栏折叠
-      collapseChage() {
-        this.collapse = !this.collapse;
-        bus.$emit('collapse', this.collapse);
-      },
+    // 侧边栏折叠
+    collapseChage () {
+      this.collapse = !this.collapse
+      bus.$emit('collapse', this.collapse)
     }
   }
+}
 </script>
 
 <style scoped>

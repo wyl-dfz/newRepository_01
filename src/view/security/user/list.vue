@@ -73,147 +73,147 @@
 
 <script>
 
-  import {user_list, user_del} from '@/request/api';
-  import UserAdd from '@/view/security/user/add';
-  import UserModify from '@/view/security/user/modify';
-  import ConfigRole from '@/view/security/user/configRole';
+import {user_list, user_del} from '@/request/api'
+import UserAdd from '@/view/security/user/add'
+import UserModify from '@/view/security/user/modify'
+import ConfigRole from '@/view/security/user/configRole'
 
-  export default {
-    name: "List",
-    data() {
-      return {
-        currPage: 1,
-        tableData: [],
-        search: {
-          loading: false,
-          form: {
-            userName: ''
-          }
+export default {
+  name: 'List',
+  data () {
+    return {
+      currPage: 1,
+      tableData: [],
+      search: {
+        loading: false,
+        form: {
+          userName: ''
         }
       }
-    },
-    methods: {
-      doSearch(currPage) {
-        const me = this;
-        me.currPage = currPage;
-        me.search.loading = true;
-        me.loadData();
-      },
-      loadData() {
-        const me = this;
-
-        const params = {};
-        params.page = me.currPage;
-        if (me.search.form.userName.length > 0) {
-          params.userName = me.search.form.userName;
-        }
-        user_list(params).then(res => {
-          me.search.loading = false;
-          const code = res.code;
-          if (code === 200) {
-            me.tableData = res.data;
-          } else {
-            this.$message.error(res.resMsg);
-          }
-        });
-      },
-      handleCurrentChange(currPage) {
-        this.doSearch(currPage);
-      },
-      isCompleteConverter(row, cell, cellVal, rowIndex) {
-        if (cellVal === 1) {
-          return "是";
-        } else {
-          return "否";
-        }
-      },
-      add() {
-        const me = this;
-        const popupLayer = this.$layer.iframe({
-          title: '添加用户',
-          shadeClose: false,
-          area: ['500px', '450px'],
-          content: {
-            content: UserAdd, //传递的组件对象
-            parent: this,//当前的vue对象
-            data: {//props
-              closeParentLayer() {
-                this.$layer.close(popupLayer);
-                me.loadData();
-              }
-            }
-          }
-        });
-      },
-      handleEdit(index, row) {
-        const me = this;
-        const userId = row.userId;
-        const popupLayer = this.$layer.iframe({
-          title: '编辑用户',
-          shadeClose: false,
-          area: ['500px', '450px'],
-          content: {
-            content: UserModify, //传递的组件对象
-            parent: this,//当前的vue对象
-            data: {//props
-              userId: userId,
-              closeParentLayer() {
-                this.$layer.close(popupLayer);
-                me.loadData();
-              }
-            }
-          }
-        });
-      },
-      handleDelete(index, row) {
-        const me = this;
-        const userId = row.userId;
-        this.$confirm('确定要删除吗?', '提示', {
-          cancelButtonText: '取消',
-          confirmButtonText: '确定',
-          type: 'warning',
-          closeOnClickModal: false
-        }).then(() => {
-          const params = {};
-          params.userId = userId;
-          user_del(params).then(res => {
-            const code = res.code;
-            if (code === 200) {
-              this.$message({
-                message: res.resMsg,
-                type: 'success'
-              });
-              me.loadData();
-            } else {
-              this.$message.error(res.resMsg);
-            }
-          });
-        }).catch(() => {
-
-        });
-      },
-      handleConfigRole(index, row) {
-        const me = this;
-        const popupLayer = this.$layer.iframe({
-          title: '配置角色',
-          shadeClose: false,
-          area: ['500px', '450px'],
-          content: {
-            content: ConfigRole, //传递的组件对象
-            parent: this,//当前的vue对象
-            data: {//props
-              closeParentLayer() {
-                this.$layer.close(popupLayer);
-              }
-            }
-          }
-        });
-      }
-    },
-    mounted() {
-      this.loadData();
     }
+  },
+  methods: {
+    doSearch (currPage) {
+      const me = this
+      me.currPage = currPage
+      me.search.loading = true
+      me.loadData()
+    },
+    loadData () {
+      const me = this
+
+      const params = {}
+      params.page = me.currPage
+      if (me.search.form.userName.length > 0) {
+        params.userName = me.search.form.userName
+      }
+      user_list(params).then(res => {
+        me.search.loading = false
+        const code = res.code
+        if (code === 200) {
+          me.tableData = res.data
+        } else {
+          this.$message.error(res.resMsg)
+        }
+      })
+    },
+    handleCurrentChange (currPage) {
+      this.doSearch(currPage)
+    },
+    isCompleteConverter (row, cell, cellVal, rowIndex) {
+      if (cellVal === 1) {
+        return '是'
+      } else {
+        return '否'
+      }
+    },
+    add () {
+      const me = this
+      const popupLayer = this.$layer.iframe({
+        title: '添加用户',
+        shadeClose: false,
+        area: ['500px', '450px'],
+        content: {
+          content: UserAdd, // 传递的组件对象
+          parent: this, // 当前的vue对象
+          data: {// props
+            closeParentLayer () {
+              this.$layer.close(popupLayer)
+              me.loadData()
+            }
+          }
+        }
+      })
+    },
+    handleEdit (index, row) {
+      const me = this
+      const userId = row.userId
+      const popupLayer = this.$layer.iframe({
+        title: '编辑用户',
+        shadeClose: false,
+        area: ['500px', '450px'],
+        content: {
+          content: UserModify, // 传递的组件对象
+          parent: this, // 当前的vue对象
+          data: {// props
+            userId: userId,
+            closeParentLayer () {
+              this.$layer.close(popupLayer)
+              me.loadData()
+            }
+          }
+        }
+      })
+    },
+    handleDelete (index, row) {
+      const me = this
+      const userId = row.userId
+      this.$confirm('确定要删除吗?', '提示', {
+        cancelButtonText: '取消',
+        confirmButtonText: '确定',
+        type: 'warning',
+        closeOnClickModal: false
+      }).then(() => {
+        const params = {}
+        params.userId = userId
+        user_del(params).then(res => {
+          const code = res.code
+          if (code === 200) {
+            this.$message({
+              message: res.resMsg,
+              type: 'success'
+            })
+            me.loadData()
+          } else {
+            this.$message.error(res.resMsg)
+          }
+        })
+      }).catch(() => {
+
+      })
+    },
+    handleConfigRole (index, row) {
+      const me = this
+      const popupLayer = this.$layer.iframe({
+        title: '配置角色',
+        shadeClose: false,
+        area: ['500px', '450px'],
+        content: {
+          content: ConfigRole, // 传递的组件对象
+          parent: this, // 当前的vue对象
+          data: {// props
+            closeParentLayer () {
+              this.$layer.close(popupLayer)
+            }
+          }
+        }
+      })
+    }
+  },
+  mounted () {
+    this.loadData()
   }
+}
 </script>
 
 <style scoped>

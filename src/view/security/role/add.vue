@@ -13,58 +13,58 @@
 
 <script>
 
-  import {role_add} from '@/request/api';
+import {role_add} from '@/request/api'
 
-  export default {
-    name: "add",
-    data() {
-      return {
-        form: {
-          roleName: ''
-        },
-        btn: {
-          submit: {
-            loading: false
-          }
+export default {
+  name: 'add',
+  data () {
+    return {
+      form: {
+        roleName: ''
+      },
+      btn: {
+        submit: {
+          loading: false
         }
-      }
-    },
-    props: {
-      closeParentLayer: {
-        type: Function,
-        default: null
-      }
-    },
-    methods: {
-      onSubmit() {
-        const me = this;
-        const roleName = me.form.roleName;
-        if (roleName.length < 1) {
-          this.$message({
-            message: '请输入角色名称',
-            type: 'warning'
-          });
-          return false;
-        }
-        const params = {};
-        params.roleName = roleName;
-        me.btn.submit.loading = true;
-        role_add(params).then(res => {
-          me.btn.submit.loading = false;
-          const code = res.code;
-          if (code === 200) {
-            me.$message({
-              message: res.resMsg,
-              type: 'success'
-            });
-            me.closeParentLayer();
-          } else {
-            me.$message.error(res.resMsg);
-          }
-        });
       }
     }
+  },
+  props: {
+    closeParentLayer: {
+      type: Function,
+      default: null
+    }
+  },
+  methods: {
+    onSubmit () {
+      const me = this
+      const roleName = me.form.roleName
+      if (roleName.length < 1) {
+        this.$message({
+          message: '请输入角色名称',
+          type: 'warning'
+        })
+        return false
+      }
+      const params = {}
+      params.roleName = roleName
+      me.btn.submit.loading = true
+      role_add(params).then(res => {
+        me.btn.submit.loading = false
+        const code = res.code
+        if (code === 200) {
+          me.$message({
+            message: res.resMsg,
+            type: 'success'
+          })
+          me.closeParentLayer()
+        } else {
+          me.$message.error(res.resMsg)
+        }
+      })
+    }
   }
+}
 </script>
 
 <style scoped>

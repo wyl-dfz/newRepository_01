@@ -22,103 +22,103 @@
 
 <script>
 
-  import {user_modify, user_findModelByUserId} from '@/request/api';
+import {user_modify, user_findModelByUserId} from '@/request/api'
 
-  export default {
-    name: "modify",
-    data() {
-      return {
-        form: {
-          userName: '',
-          mobile: '',
-          email: '',
-          address: ''
-        },
-        btn: {
-          submit: {
-            loading: false
-          }
-        }
-      }
-    },
-    props: {
-      userId: String,
-      closeParentLayer: {
-        type: Function,
-        default: null
-      }
-    },
-    methods: {
-      onSubmit() {
-        const me = this;
-        const params = {};
-        const mobile = me.form.mobile;
-        if (mobile.length < 1) {
-          this.$message({
-            message: '请输入手机号码',
-            type: 'warning'
-          });
-          return false;
-        }
-        const userName = me.form.userName;
-        if (userName.length < 1) {
-          this.$message({
-            message: '请输入用户名称',
-            type: 'warning'
-          });
-          return false;
-        }
-        const email = me.form.email;
-        if (email.length < 1) {
-          this.$message({
-            message: '请输入邮箱地址',
-            type: 'warning'
-          });
-          return false;
-        }
-        params.userId = me.userId;
-        params.userName = userName;
-        params.mobile = mobile;
-        params.email = email;
-        params.address = me.form.address;
-        me.btn.submit.loading = true;
-        user_modify(params).then(res => {
-          me.btn.submit.loading = false;
-          const code = res.code;
-          if (code === 200) {
-            me.$message({
-              message: res.resMsg,
-              type: 'success'
-            });
-            me.closeParentLayer();
-          } else {
-            me.$message.error(res.resMsg);
-          }
-        });
+export default {
+  name: 'modify',
+  data () {
+    return {
+      form: {
+        userName: '',
+        mobile: '',
+        email: '',
+        address: ''
       },
-      loadUserInfo() {
-        const me = this;
-        const params = {};
-        params.userId = me.userId;
-        user_findModelByUserId(params).then(res => {
-          console.log(res)
-          const code = res.code;
-          if (code === 200) {
-            var data = res.data;
-            me.form.userName = data.userName;
-            me.form.mobile = data.userPhone;
-            me.form.email = data.userEmail;
-            me.form.address = data.address;
-          } else {
-            me.$message.error(res.resMsg);
-          }
-        });
+      btn: {
+        submit: {
+          loading: false
+        }
       }
-    },
-    mounted() {
-      this.loadUserInfo();
     }
+  },
+  props: {
+    userId: String,
+    closeParentLayer: {
+      type: Function,
+      default: null
+    }
+  },
+  methods: {
+    onSubmit () {
+      const me = this
+      const params = {}
+      const mobile = me.form.mobile
+      if (mobile.length < 1) {
+        this.$message({
+          message: '请输入手机号码',
+          type: 'warning'
+        })
+        return false
+      }
+      const userName = me.form.userName
+      if (userName.length < 1) {
+        this.$message({
+          message: '请输入用户名称',
+          type: 'warning'
+        })
+        return false
+      }
+      const email = me.form.email
+      if (email.length < 1) {
+        this.$message({
+          message: '请输入邮箱地址',
+          type: 'warning'
+        })
+        return false
+      }
+      params.userId = me.userId
+      params.userName = userName
+      params.mobile = mobile
+      params.email = email
+      params.address = me.form.address
+      me.btn.submit.loading = true
+      user_modify(params).then(res => {
+        me.btn.submit.loading = false
+        const code = res.code
+        if (code === 200) {
+          me.$message({
+            message: res.resMsg,
+            type: 'success'
+          })
+          me.closeParentLayer()
+        } else {
+          me.$message.error(res.resMsg)
+        }
+      })
+    },
+    loadUserInfo () {
+      const me = this
+      const params = {}
+      params.userId = me.userId
+      user_findModelByUserId(params).then(res => {
+        console.log(res)
+        const code = res.code
+        if (code === 200) {
+          var data = res.data
+          me.form.userName = data.userName
+          me.form.mobile = data.userPhone
+          me.form.email = data.userEmail
+          me.form.address = data.address
+        } else {
+          me.$message.error(res.resMsg)
+        }
+      })
+    }
+  },
+  mounted () {
+    this.loadUserInfo()
   }
+}
 </script>
 
 <style scoped>

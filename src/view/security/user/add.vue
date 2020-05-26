@@ -25,90 +25,90 @@
 
 <script>
 
-  import {user_add} from '@/request/api';
+import {user_add} from '@/request/api'
 
-  export default {
-    name: "add",
-    data() {
-      return {
-        form: {
-          userName: '',
-          mobile: '',
-          email: '',
-          pwd: '',
-          address: ''
-        },
-        btn: {
-          submit: {
-            loading: false
-          }
+export default {
+  name: 'add',
+  data () {
+    return {
+      form: {
+        userName: '',
+        mobile: '',
+        email: '',
+        pwd: '',
+        address: ''
+      },
+      btn: {
+        submit: {
+          loading: false
         }
-      }
-    },
-    props: {
-      closeParentLayer: {
-        type: Function,
-        default: null
-      }
-    },
-    methods: {
-      onSubmit() {
-        const me = this;
-        const params = {};
-        const mobile = me.form.mobile;
-        if (mobile.length < 1) {
-          this.$message({
-            message: '请输入手机号码',
-            type: 'warning'
-          });
-          return false;
-        }
-        const pwd = me.form.pwd;
-        if (pwd.length < 1) {
-          this.$message({
-            message: '请输入登录密码',
-            type: 'warning'
-          });
-          return false;
-        }
-        const userName = me.form.userName;
-        if (userName.length < 1) {
-          this.$message({
-            message: '请输入用户名称',
-            type: 'warning'
-          });
-          return false;
-        }
-        const email = me.form.email;
-        if (email.length < 1) {
-          this.$message({
-            message: '请输入邮箱地址',
-            type: 'warning'
-          });
-          return false;
-        }
-        params.userName = userName;
-        params.mobile = mobile;
-        params.email = email;
-        params.pwd = pwd;
-        params.address = me.form.address;
-        me.btn.submit.loading = true;
-        user_add(params).then(res => {
-          me.btn.submit.loading = false;
-          const code = res.code;
-          if (code === 200) {
-            me.$message({
-              message: res.resMsg,
-              type: 'success'
-            });
-            me.closeParentLayer();
-          } else {
-            me.$message.error(res.resMsg);
-          }
-        });
       }
     }
+  },
+  props: {
+    closeParentLayer: {
+      type: Function,
+      default: null
+    }
+  },
+  methods: {
+    onSubmit () {
+      const me = this
+      const params = {}
+      const mobile = me.form.mobile
+      if (mobile.length < 1) {
+        this.$message({
+          message: '请输入手机号码',
+          type: 'warning'
+        })
+        return false
+      }
+      const pwd = me.form.pwd
+      if (pwd.length < 1) {
+        this.$message({
+          message: '请输入登录密码',
+          type: 'warning'
+        })
+        return false
+      }
+      const userName = me.form.userName
+      if (userName.length < 1) {
+        this.$message({
+          message: '请输入用户名称',
+          type: 'warning'
+        })
+        return false
+      }
+      const email = me.form.email
+      if (email.length < 1) {
+        this.$message({
+          message: '请输入邮箱地址',
+          type: 'warning'
+        })
+        return false
+      }
+      params.userName = userName
+      params.mobile = mobile
+      params.email = email
+      params.pwd = pwd
+      params.address = me.form.address
+      me.btn.submit.loading = true
+      user_add(params).then(res => {
+        me.btn.submit.loading = false
+        const code = res.code
+        if (code === 200) {
+          me.$message({
+            message: res.resMsg,
+            type: 'success'
+          })
+          me.closeParentLayer()
+        } else {
+          me.$message.error(res.resMsg)
+        }
+      })
+    }
   }
+}
 </script>
 
 <style scoped>

@@ -9,25 +9,25 @@
 </template>
 
 <script>
-    import smHead from './Header'
-    import smSidebar from './Sidebar'
-    import bus from './bus';
-    export default {
-        name: "Home",
-        data(){
-          return{
-            collapse:false
-          }
-        },
-        components:{
-          smHead,smSidebar
-        },
-        created(){
-          bus.$on('collapse', msg => {
-            this.collapse = msg;
-          })
-        }
+import smHead from './Header'
+import smSidebar from './Sidebar'
+import bus from './bus'
+export default {
+  name: 'Home',
+  data () {
+    return {
+      collapse: false
     }
+  },
+  components: {
+    smHead, smSidebar
+  },
+  created () {
+    bus.$on('collapse', msg => {
+      this.collapse = msg
+    })
+  }
+}
 </script>
 
 <style scoped>

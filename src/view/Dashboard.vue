@@ -6,20 +6,20 @@
 
 <script>
 
-  export default {
-    name: '首页',
-    data() {
-      return {
-        loading: false
-      }
-    },
-    methods: {
-
-    },
-    mounted() {
-
+export default {
+  name: '首页',
+  data () {
+    return {
+      loading: false
     }
+  },
+  methods: {
+
+  },
+  mounted () {
+
   }
+}
 </script>
 
 <style scoped>

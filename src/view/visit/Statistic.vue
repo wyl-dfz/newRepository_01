@@ -23,21 +23,21 @@
 
 <script>
 
-  export default {
-    name: 'Statistic',
-    data() {
-      return {
-        search: {
-          loading: false,
-          accessTime: []
-        },
-        chart: {
-          xAxis: ['**.com'],
-          series: [0]
-        }
+export default {
+  name: 'Statistic',
+  data () {
+    return {
+      search: {
+        loading: false,
+        accessTime: []
+      },
+      chart: {
+        xAxis: ['**.com'],
+        series: [0]
       }
     }
   }
+}
 </script>
 
 <style scoped>

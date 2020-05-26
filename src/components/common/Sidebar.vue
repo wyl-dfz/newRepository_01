@@ -43,78 +43,78 @@
 </template>
 
 <script>
-  import bus from '../common/bus';
+import bus from '../common/bus'
 
-  export default {
-    name: "Sidebar",
-    data() {
-      return {
-        collapse: false,
-        items: [
-          {
-            id: 1,
-            icon: 'el-icon-platform-eleme',
-            name: '控制台',
-            path: '/dashboard',
-          },
-          {
-            id: 2,
-            icon: 'el-icon-star-off',
-            name: '权限管理',
-            subs: [
-              {
-                id: 201,
-                name: '用户管理',
-                path: '/security/user/list'
-              },
-              {
-                id: 202,
-                name: '角色管理',
-                path: '/security/role/list'
-              },
-              {
-                id: 203,
-                name: '菜单管理',
-                path: '/security/menu/list'
-              },
-            ]
-          },
-          {
-            id: 3,
-            icon: 'el-icon-picture-outline',
-            name: '日报管理',
-            subs: [
-              {
-                id: 301,
-                name: '日报列表',
-                path: '/daily/list'
-              }
-            ]
-          },
-        ]
-      }
-    },
-    computed: {
-      activeMenu() {
-        return this.$store.state.menuIdx;
-      }
-    },
-    created() {
-      bus.$on('collapse', msg => {
-        this.collapse = msg;
+export default {
+  name: 'Sidebar',
+  data () {
+    return {
+      collapse: false,
+      items: [
+        {
+          id: 1,
+          icon: 'el-icon-platform-eleme',
+          name: '控制台',
+          path: '/dashboard'
+        },
+        {
+          id: 2,
+          icon: 'el-icon-star-off',
+          name: '权限管理',
+          subs: [
+            {
+              id: 201,
+              name: '用户管理',
+              path: '/security/user/list'
+            },
+            {
+              id: 202,
+              name: '角色管理',
+              path: '/security/role/list'
+            },
+            {
+              id: 203,
+              name: '菜单管理',
+              path: '/security/menu/list'
+            }
+          ]
+        },
+        {
+          id: 3,
+          icon: 'el-icon-picture-outline',
+          name: '日报管理',
+          subs: [
+            {
+              id: 301,
+              name: '日报列表',
+              path: '/daily/list'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  computed: {
+    activeMenu () {
+      return this.$store.state.menuIdx
+    }
+  },
+  created () {
+    bus.$on('collapse', msg => {
+      this.collapse = msg
+    })
+  },
+  methods: {
+    openUrl (id, path) {
+      this.$store.commit('changeMenuIdx', {
+        id: id
       })
-    },
-    methods: {
-      openUrl(id, path) {
-        this.$store.commit('changeMenuIdx', {
-          id: id
-        });
-        this.$router.push({
-          path: path
-        })
-      }
+      this.$router.push({
+        path: path
+      })
     }
   }
+}
 </script>
 
 <style scoped>

@@ -54,101 +54,101 @@
 import { daily_list, daily_exportDaily } from '@/request/api'
 
 export default {
-  name: "Record",
-  data() {
+  name: 'Record',
+  data () {
     return {
       currentPage: 1,
       tableData: [],
       search: {
         loading: false,
-        dailyDate: "",
-        userName: ""
+        dailyDate: '',
+        userName: ''
       },
       pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
+        disabledDate (time) {
+          return time.getTime() > Date.now()
         },
         shortcuts: [
           {
-            text: "今天",
-            onClick(picker) {
-              picker.$emit("pick", new Date());
+            text: '今天',
+            onClick (picker) {
+              picker.$emit('pick', new Date())
             }
           },
           {
-            text: "昨天",
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit("pick", date);
+            text: '昨天',
+            onClick (picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              picker.$emit('pick', date)
             }
           },
           {
-            text: "一周前",
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", date);
+            text: '一周前',
+            onClick (picker) {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
             }
           }
         ]
       }
-    };
+    }
   },
   methods: {
-    doSearch(currPage) {
-      console.log(currPage);
-      const me = this;
-      me.search.loading = true;
+    doSearch (currPage) {
+      console.log(currPage)
+      const me = this
+      me.search.loading = true
 
-      const params = {};
-      params.page = currPage;
+      const params = {}
+      params.page = currPage
       if (me.search.dailyDate && me.search.dailyDate.length > 0) {
-        params.dailyDate = me.search.dailyDate;
+        params.dailyDate = me.search.dailyDate
       }
       if (me.search.userName.length > 0) {
-        params.userName = me.search.userName;
+        params.userName = me.search.userName
       }
       daily_list(params).then(res => {
-        me.search.loading = false;
-        const code = res.code;
+        me.search.loading = false
+        const code = res.code
         if (code === 200) {
-          me.tableData = res.data;
-          this.currentPage = currPage;
+          me.tableData = res.data
+          this.currentPage = currPage
         } else {
-          this.$message.error(res.resMsg);
+          this.$message.error(res.resMsg)
         }
-      });
+      })
     },
-    handleCurrentChange(currPage) {
-      this.doSearch(currPage);
+    handleCurrentChange (currPage) {
+      this.doSearch(currPage)
     },
-    isCompleteConverter(row, cell, cellVal, rowIndex) {
+    isCompleteConverter (row, cell, cellVal, rowIndex) {
       if (cellVal == 1) {
-        return "是";
+        return '是'
       } else {
-        return "否";
+        return '否'
       }
     },
-    exportDaily() {
-      const me = this;
-      let dailyDate = me.search.dailyDate;
+    exportDaily () {
+      const me = this
+      let dailyDate = me.search.dailyDate
       if (dailyDate.length > 0) {
         dailyDate =
           dailyDate.substring(0, 4) +
-          "-" +
+          '-' +
           dailyDate.substring(4, 6) +
-          "-" +
-          dailyDate.substring(6, 8);
+          '-' +
+          dailyDate.substring(6, 8)
         window.location.href =
-          window.baseUrl + "daily/exportDaily?day=" + dailyDate;
+          window.baseUrl + 'daily/exportDaily?day=' + dailyDate
       } else {
-        window.location.href = window.baseUrl + "daily/exportDaily";
+        window.location.href = window.baseUrl + 'daily/exportDaily'
       }
     }
   },
-  mounted() {}
-};
+  mounted () {}
+}
 </script>
 
 <style scoped>

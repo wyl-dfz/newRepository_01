@@ -80,27 +80,25 @@
 
 <script>
 
-
-  export default {
-    name: "Record",
-    data() {
-      return {
-        currentPage: 1,
-        tableData: [],
-        search: {
-          loading: false,
-          host: '',
-          ip: ''
-        }
-      }
-    },
-    methods: {
-      handleCurrentChange(currPage) {
-
-
+export default {
+  name: 'Record',
+  data () {
+    return {
+      currentPage: 1,
+      tableData: [],
+      search: {
+        loading: false,
+        host: '',
+        ip: ''
       }
     }
+  },
+  methods: {
+    handleCurrentChange (currPage) {
+
+    }
   }
+}
 </script>
 
 <style scoped>

@@ -9,8 +9,8 @@ export default new Vuex.Store({
     token: 'sa'
   },
   mutations: {
-    changeMenuIdx(state, menu) {
-      state.menuIdx = menu.id;
+    changeMenuIdx (state, menu) {
+      state.menuIdx = menu.id
     }
   }
 })

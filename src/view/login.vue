@@ -16,50 +16,50 @@
 
 <script>
 
-  import {login} from '@/request/api';
+import {login} from '@/request/api'
 
-  export default {
-    name: 'login',
-    data() {
-      return {
-        username: '',
-        password: '',
-        loading: false
+export default {
+  name: 'login',
+  data () {
+    return {
+      username: '',
+      password: '',
+      loading: false
+    }
+  },
+  methods: {
+    onSubmit () {
+      // 1852515
+      const me = this
+      if (me.username.length < 1) {
+        this.$message.warning('请输入用户名')
+        return false
       }
-    },
-    methods: {
-      onSubmit() {
-        // 1852515
-        const me = this;
-        if (me.username.length < 1) {
-          this.$message.warning('请输入用户名');
-          return false;
-        }
-        if (me.password.length < 1) {
-          this.$message.warning('请输入密码');
-          return false;
-        }
-        me.loading = true;
+      if (me.password.length < 1) {
+        this.$message.warning('请输入密码')
+        return false
+      }
+      me.loading = true
 
-        const params = {};
-        params.username = me.username;
-        params.password = me.password;
-        login(params).then(res => {
-          me.loading = false;
-          const code = res.code;
-          if (code === 200) {
-            const accessToken = res.accessToken;
-            this.$cookie.set('token', accessToken);
-            window.sessionStorage.setItem('token', accessToken);
-            const redirect = decodeURIComponent(this.$route.query.redirect || '/');
-            this.$router.push({path: redirect});
-          } else {
-            this.$message.error(res.resMsg);
-          }
-        });
-      }
+      const params = {}
+      params.username = me.username
+      params.password = me.password
+      login(params).then(res => {
+        me.loading = false
+        const code = res.code
+        if (code === 200) {
+          const accessToken = res.accessToken
+          this.$cookie.set('token', accessToken)
+          window.sessionStorage.setItem('token', accessToken)
+          const redirect = decodeURIComponent(this.$route.query.redirect || '/')
+          this.$router.push({path: redirect})
+        } else {
+          this.$message.error(res.resMsg)
+        }
+      })
     }
   }
+}
 </script>
 
 <style scoped>
