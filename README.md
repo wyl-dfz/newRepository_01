@@ -10,3 +10,7 @@ Springboot + mybatis
 前端技术：
 
 vue
+
+部署运维技术：
+
+采用jenkins自动化部署
